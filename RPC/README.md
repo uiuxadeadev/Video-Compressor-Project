@@ -1,4 +1,3 @@
-```markdown
 # RPC System Implementation
 
 このRecursionプロジェクトは、異なるプログラミング言語で書かれたクライアント（JavaScript）とサーバ（Python）が共通の方法で通信し、特定の関数を実行できるRPC（Remote Procedure Call）システムの実装です。
@@ -75,4 +74,3 @@
 - `server/` - Pythonで書かれたサーバのコード
 - `client/` - JavaScript（Node.js）で書かれたクライアントのコード
 
-```

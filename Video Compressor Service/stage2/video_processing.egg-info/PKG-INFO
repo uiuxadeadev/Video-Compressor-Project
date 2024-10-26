@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: video_processing
+Version: 1.0.0
+Summary: Video processing service with client/server architecture
+Author: Your Name
+Author-email: your.email@example.com
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: psutil>=5.9.0
+Requires-Dist: ffmpeg-python>=0.2.0
+Provides-Extra: server
+Provides-Extra: client
+
+# Video Processing Service
+
+Video processing service with client/server architecture.
+
+## Features
+
+- Video compression
+- Resolution change
+- Aspect ratio change
+- Audio extraction
+- GIF creation
+- WebM creation
+
+## Installation
+
+```bash
+pip install -e .
+```
+
+## Usage
+
+### Server
+
+```bash
+python server/server.py
+```
+
+### Client
+
+```bash
+python client/client.py video.mp4 --type compress
+```
+
+## Requirements
+
+- Python 3.8+
+- FFmpeg

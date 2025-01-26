@@ -187,4 +187,31 @@ def start_server():
         signal.signal(signal.SIGINT, lambda s, f: cleanup_server(tcp_sock))
         signal.signal(signal.SIGTERM, lambda s, f: cleanup_server(tcp_sock))
 
-        # Start the UDP
+        # Start the UDP handler in a separate thread
+        udp_thread = threading.Thread(target=lambda: asyncio.run(udp_chat_handler()))
+        udp_thread.start()
+
+        # Main loop for accepting TCP connections
+        while not shutdown_event.is_set():
+            try:
+                tcp_sock.settimeout(1.0)  # Set timeout for accept()
+                conn, addr = tcp_sock.accept()  # Wait for incoming connections
+                # Handle each TCP connection in a separate thread
+                client_thread = threading.Thread(target=handle_tcp_connection, args=(conn, addr))
+                client_thread.start()
+            except socket.timeout:
+                continue  # Timeout occurred, check shutdown flag
+            except Exception as e:
+                if not shutdown_event.is_set():
+                    print(f"Error accepting connection: {e}")
+
+    except Exception as e:
+        print(f"Server error: {e}")
+    finally:
+        cleanup_server(tcp_sock)
+
+if __name__ == '__main__':
+    try:
+        start_server()
+    except KeyboardInterrupt:
+        print("\nServer shutdown requested...")
